@@ -1,0 +1,26 @@
+# .github/workflows/cantina-build.yml
+name: Cantina build - Working branches
+on:
+  push:
+    branches-ignore:
+      - 'main'
+  pull_request:
+    types: [published, created, edited]
+    branches-ignore:
+      - 'main'
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+            java-version: 15
+      - run: mvn clean test verify
+      - name: Save tests report
+        uses: actions/upload-artifact@v2
+        with:
+          name: Integration tests report
+          path: target/surefire-reports/*.txt
+        timeout-minutes: 1
