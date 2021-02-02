@@ -5,3 +5,7 @@
 .settings
 .vscode
 target
+
+.idea/
+.metadata/
+*.iml
