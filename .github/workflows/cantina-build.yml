@@ -22,5 +22,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Integration tests report
-          path: target/surefire-reports/report.txt
+          path: report.txt
         timeout-minutes: 1
