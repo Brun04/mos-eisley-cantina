@@ -17,10 +17,19 @@ jobs:
         uses: actions/setup-java@v1
         with:
             java-version: 15
-      - run: mvn clean test verify > report.txt
-      - name: Save tests report
+      - name: Unit test with Maven
+        run: mvn test > report.txt
+      - name: Save unit test report
         uses: actions/upload-artifact@v2
         with:
-          name: Integration tests report
+          name: Unit test report
+          path: report.txt
+        timeout-minutes: 1
+      - name: Integration test with Maven
+        run: mvn verify > report.txt
+      - name: Save integration test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: Integration test report
           path: report.txt
         timeout-minutes: 1
