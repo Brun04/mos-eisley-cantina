@@ -18,7 +18,7 @@ jobs:
         with:
             java-version: 15
       - name: Unit test with Maven
-        run: mvn test > report.txt
+        run: mvn test -Dartifact_version=dev > report.txt
       - name: Save unit test report
         uses: actions/upload-artifact@v2
         with:
@@ -26,7 +26,7 @@ jobs:
           path: report.txt
         timeout-minutes: 1
       - name: Integration test with Maven
-        run: mvn verify > report.txt
+        run: mvn verify -Dartifact_version=dev > report.txt
       - name: Save integration test report
         uses: actions/upload-artifact@v2
         with:
