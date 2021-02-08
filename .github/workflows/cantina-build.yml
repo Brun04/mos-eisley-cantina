@@ -1,0 +1,35 @@
+# .github/workflows/cantina-build.yml
+name: Cantina build - Working branches
+on:
+  push:
+    branches-ignore:
+      - 'main'
+  pull_request:
+    types: [published, created, edited]
+    branches-ignore:
+      - 'main'
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+            java-version: 15
+      - name: Unit test with Maven
+        run: mvn test -Dartifact_version=dev > report.txt
+      - name: Save unit test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: Unit test report
+          path: report.txt
+        timeout-minutes: 1
+      - name: Integration test with Maven
+        run: mvn verify -Dartifact_version=dev > report.txt
+      - name: Save integration test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: Integration test report
+          path: report.txt
+        timeout-minutes: 1
