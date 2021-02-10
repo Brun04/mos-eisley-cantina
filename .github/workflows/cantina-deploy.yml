@@ -42,7 +42,7 @@ jobs:
         with:
             java-version: 15
       - name: Create JAR package
-        run: mvn package -Dartifact_version=${{ steps.vars.outputs.tag }} -Dmaven.test.skip=true
+        run: mvn package -Dartifact_version=${{ steps.vars.outputs.tag }} -Dmaven.test.skip=true spring-boot:repackage
       - name: Create a new release
         id: create_release
         uses: actions/create-release@v1
