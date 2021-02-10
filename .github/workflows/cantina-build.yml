@@ -18,18 +18,12 @@ jobs:
         with:
             java-version: 15
       - name: Unit test with Maven
-        run: mvn test -Dartifact_version=dev > report.txt
-      - name: Save unit test report
-        uses: actions/upload-artifact@v2
-        with:
-          name: Unit test report
-          path: report.txt
-        timeout-minutes: 1
+        run: mvn test -Dartifact_version=ut
       - name: Integration test with Maven
-        run: mvn verify -Dartifact_version=dev > report.txt
+        run: mvn verify -Dartifact_version=it
       - name: Save integration test report
         uses: actions/upload-artifact@v2
         with:
           name: Integration test report
-          path: report.txt
+          path: /home/runner/work/mos-eisley-cantina/mos-eisley-cantina/target/surefire-reports/*.txt
         timeout-minutes: 1
